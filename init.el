@@ -18,7 +18,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages (quote (ac-slime slime evil jedi iedit flycheck))))
+ '(package-selected-packages (quote (paredit ac-slime slime evil jedi iedit flycheck))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -37,11 +37,17 @@
 ;; (bind-keys*
 ;;      ("C-l" . iedit-mode))
 
-;;(load-theme 'adwaita t)
-(load-theme 'wheatgrass t)
+(load-theme 'adwaita t)
+;;(load-theme 'wheatgrass t)
+
+(defun on-after-init ()
+  (unless (display-graphic-p (selected-frame))
+    (set-face-background 'default "unspecified-bg" (selected-frame))))
+
+(add-hook 'window-setup-hook 'on-after-init)
 
 (menu-bar-mode -1)
-(toggle-scroll-bar -1)
+;;(toggle-scroll-bar -1)
 (yas-global-mode 1) 
 
 (add-hook 'python-mode-hook 'jedi:setup)
